@@ -1,0 +1,35 @@
+<!-- alimento-create.html -->
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Create Alimento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label>Nome</ion-label>
+    <ion-input [(ngModel)]="data.nome" placeholder="Enter Nome"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Calorias</ion-label>
+    <ion-input [(ngModel)]="data.calorias" placeholder="Enter calorias"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Peso</ion-label>
+    <ion-input [(ngModel)]="data.peso" placeholder="Enter peso"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Porcao</ion-label>
+    <ion-input [(ngModel)]="data.porcao" placeholder="Enter porcao"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-button (click)="submitForm()">Add
+    </ion-button>
+  </ion-item>
+
+</ion-content>

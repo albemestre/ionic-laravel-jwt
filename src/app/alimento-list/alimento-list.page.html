@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>List All Alimentos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id&nbsp;</th>
+        <th scope="col">Nome&nbsp;</th>
+        <th scope="col">Calorias&nbsp;</th>
+        <th scope="col">Peso&nbsp;</th>
+        <th scope="col">Porcao&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of alimentosData">
+        <td>{{ item.id }}</td>
+        <td>{{ item.nome }}</td>
+        <td>{{ item.calorias }}</td>
+        <td>{{ item.peso }}</td>
+        <td>{{ item.porcao }}</td>
+        <td style="display: flex">
+          <ion-button color="warning" size="small" routerLink='/alimento-edit/{{item.id}}'>
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+          <ion-button color="danger" size="small" (click)="delete(item)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ion-button [routerLink]="['/alimento-create']">
+    Add Alimento
+  </ion-button>
+</ion-content>
