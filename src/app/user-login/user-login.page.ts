@@ -22,7 +22,7 @@ export class UserLoginPage implements OnInit {
   login() {
     this.apiService.login(this.data).subscribe((response) => {
       debugger;
-      localStorage.setItem('laravel_token', response['data'].access_token);
+      localStorage.setItem('data_token', response['data'].access_token);
       this.router.navigate(['dieta-list']);
     });
   }

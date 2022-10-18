@@ -30,6 +30,7 @@ export class PacienteNutriCreatePage implements OnInit {
     let user_id = localStorage.getItem('user_id');
     this.dataPaciente.user_id = parseInt(user_id);
     this.dataNutri.user_id = parseInt(user_id);
+    debugger
 
   }
 
@@ -43,12 +44,14 @@ export class PacienteNutriCreatePage implements OnInit {
   }
 
   finalizarPaciente() {
+    debugger
     this.apiServicePaciente.createItem(this.dataPaciente).subscribe((response) => {
       this.router.navigate(['dieta-list']);
     });
   } 
 
   finalizarNutri() {
+    debugger;
     this.apiServiceNutri.createItem(this.dataNutri).subscribe((response) => {
       this.router.navigate(['dieta-list']);
     });

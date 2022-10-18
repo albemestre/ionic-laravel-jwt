@@ -11,20 +11,22 @@ import { retry, catchError } from 'rxjs/operators';
 export class ApiPacienteService {
 
   // API path
-  base_path = 'http://localhost:8000/api/pacientes';
-
-
+  base_path = 'http://localhost:8000/api/pacientes'; 
 
   constructor(private http: HttpClient) { }
 
   public auth_token = localStorage.getItem('data_token');
   
   // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth_token}`
-    })
+  getHttpOptions() {
+
+
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.auth_token}`
+      })
+    } 
   }
 
   // Handle API errors
@@ -48,8 +50,13 @@ export class ApiPacienteService {
   // Create a new item
   createItem(item): Observable<Paciente> {
     
+    let httpOptions =  this.getHttpOptions();
+     
+
+    debugger;
+
     return this.http      
-      .post<Paciente>(this.base_path, JSON.stringify(item), this.httpOptions)
+      .post<Paciente>(this.base_path, JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -59,7 +66,7 @@ export class ApiPacienteService {
   // Get single paciente data by ID
   getItem(id): Observable<Paciente> {
     return this.http
-      .get<Paciente>(this.base_path + '/' + id, this.httpOptions)
+      .get<Paciente>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -102,7 +109,7 @@ export class ApiPacienteService {
   // Update item by id
   updateItem(id, item): Observable<Paciente> {
     return this.http
-      .put<Paciente>(this.base_path + '/' + id, JSON.stringify(item), this.httpOptions)
+      .put<Paciente>(this.base_path + '/' + id, JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -112,7 +119,7 @@ export class ApiPacienteService {
   // Delete item by id
   deleteItem(id) {
     return this.http
-      .delete<Paciente>(this.base_path + '/' + id, this.httpOptions)
+      .delete<Paciente>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)

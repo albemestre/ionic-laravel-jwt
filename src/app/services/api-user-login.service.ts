@@ -13,20 +13,21 @@ export class ApiUserLoginsService {
 
   // API path
   base_path = 'http://localhost:8000/api/auth';
-
-
-
+ 
   constructor(private http: HttpClient) { }
 
   public auth_token = localStorage.getItem('data_token');
 
 
   // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth_token}`
-    })
+  getHttpOptions() {
+    this.auth_token = localStorage.getItem('data_token');
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.auth_token}`
+      })
+    } 
   }
 
   // Handle API errors
@@ -51,7 +52,7 @@ export class ApiUserLoginsService {
   createItem(item): Observable<UserLogin> {
     
     return this.http      
-      .post<UserLogin>(this.base_path, JSON.stringify(item), this.httpOptions)
+      .post<UserLogin>(this.base_path, JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -62,7 +63,7 @@ export class ApiUserLoginsService {
   login(item): Observable<UserLogin> {
     
     return this.http      
-      .post<UserLogin>(this.base_path+"/login", JSON.stringify(item), this.httpOptions)
+      .post<UserLogin>(this.base_path+"/login", JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -71,9 +72,11 @@ export class ApiUserLoginsService {
 
    // Create a new item
    logout(): Observable<void> {
+
+    debugger
     
     return this.http      
-      .post<void>(this.base_path+"/logout", null, this.httpOptions)
+      .post<void>(this.base_path+"/logout", null, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -84,7 +87,7 @@ export class ApiUserLoginsService {
   register(item): Observable<UserLoginCreate> {
     
     return this.http      
-      .post<UserLoginCreate>(this.base_path+"/register", JSON.stringify(item), this.httpOptions)
+      .post<UserLoginCreate>(this.base_path+"/register", JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -94,7 +97,7 @@ export class ApiUserLoginsService {
   // Get single userlogin data by ID
   getItem(id): Observable<UserLogin> {
     return this.http
-      .get<UserLogin>(this.base_path + '/' + id, this.httpOptions)
+      .get<UserLogin>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -126,7 +129,7 @@ export class ApiUserLoginsService {
 
     //return this.http.get<Observable>(this.base_path, { headers: headers });
     return this.http
-      .get<UserLogin>(this.base_path, { headers: headers })
+      .get<UserLogin>(this.base_path, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -137,7 +140,7 @@ export class ApiUserLoginsService {
   // Update item by id
   updateItem(id, item): Observable<UserLogin> {
     return this.http
-      .put<UserLogin>(this.base_path + '/' + id, JSON.stringify(item), this.httpOptions)
+      .put<UserLogin>(this.base_path + '/' + id, JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -147,7 +150,7 @@ export class ApiUserLoginsService {
   // Delete item by id
   deleteItem(id) {
     return this.http
-      .delete<UserLogin>(this.base_path + '/' + id, this.httpOptions)
+      .delete<UserLogin>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)

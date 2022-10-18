@@ -20,11 +20,13 @@ export class ApiDietasService {
   public auth_token = localStorage.getItem('data_token');
   
   // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth_token}`
-    })
+  getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.auth_token}`
+      })
+    } 
   }
 
   // Handle API errors
@@ -49,7 +51,7 @@ export class ApiDietasService {
   createItem(item): Observable<Dieta> {
     
     return this.http      
-      .post<Dieta>(this.base_path, JSON.stringify(item), this.httpOptions)
+      .post<Dieta>(this.base_path, JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -59,7 +61,7 @@ export class ApiDietasService {
   // Get single dieta data by ID
   getItem(id): Observable<Dieta> {
     return this.http
-      .get<Dieta>(this.base_path + '/' + id, this.httpOptions)
+      .get<Dieta>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -89,9 +91,9 @@ export class ApiDietasService {
      });
     //return this.http.get<Server[]>(`${environment.apiUrl}/api/Servers/GetServerList`, { headers: reqHeader });
 
-    //return this.http.get<Observable>(this.base_path, { headers: headers });
+    //return this.http.get<Observable>(this.base_path, this.gethttpoptions());
     return this.http
-      .get<Dieta>(this.base_path, { headers: headers })
+      .get<Dieta>(this.base_path, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -102,7 +104,7 @@ export class ApiDietasService {
   // Update item by id
   updateItem(id, item): Observable<Dieta> {
     return this.http
-      .put<Dieta>(this.base_path + '/' + id, JSON.stringify(item), this.httpOptions)
+      .put<Dieta>(this.base_path + '/' + id, JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -112,7 +114,7 @@ export class ApiDietasService {
   // Delete item by id
   deleteItem(id) {
     return this.http
-      .delete<Dieta>(this.base_path + '/' + id, this.httpOptions)
+      .delete<Dieta>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)

@@ -20,12 +20,15 @@ export class ApiAlimentosService {
   public auth_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY2NTk4NTI4OCwiZXhwIjoxNjY4NTc3Mjg4LCJuYmYiOjE2NjU5ODUyODgsImp0aSI6IkQ3UndudFRqcHN4TVAzcGQiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.hndWm6fxo1lqoBt5Gsh25L6CPTrOBqTTzwvvu4Q5iBk";
 
   // Http Options
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.auth_token}`
-    })
+  getHttpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.auth_token}`
+      })
+    } 
   }
+  
 
   // Handle API errors
   handleError(error: HttpErrorResponse) {
@@ -49,7 +52,7 @@ export class ApiAlimentosService {
   createItem(item): Observable<Alimento> {
     
     return this.http      
-      .post<Alimento>(this.base_path, JSON.stringify(item), this.httpOptions)
+      .post<Alimento>(this.base_path, JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -59,7 +62,7 @@ export class ApiAlimentosService {
   // Get single alimento data by ID
   getItem(id): Observable<Alimento> {
     return this.http
-      .get<Alimento>(this.base_path + '/' + id, this.httpOptions)
+      .get<Alimento>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -91,7 +94,7 @@ export class ApiAlimentosService {
 
     //return this.http.get<Observable>(this.base_path, { headers: headers });
     return this.http
-      .get<Alimento>(this.base_path, { headers: headers })
+      .get<Alimento>(this.base_path, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -102,7 +105,7 @@ export class ApiAlimentosService {
   // Update item by id
   updateItem(id, item): Observable<Alimento> {
     return this.http
-      .put<Alimento>(this.base_path + '/' + id, JSON.stringify(item), this.httpOptions)
+      .put<Alimento>(this.base_path + '/' + id, JSON.stringify(item), this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -112,7 +115,7 @@ export class ApiAlimentosService {
   // Delete item by id
   deleteItem(id) {
     return this.http
-      .delete<Alimento>(this.base_path + '/' + id, this.httpOptions)
+      .delete<Alimento>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
