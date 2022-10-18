@@ -1,8 +1,12 @@
 <ion-header>
   <ion-toolbar color="tertiary">
-    <ion-title>List All Alimentos</ion-title>
+    <ion-title>List All Dietas - </ion-title> 
   </ion-toolbar>
 </ion-header>
+    
+<ion-button  (click)="logout()">
+  Logout
+</ion-button>
 
 <ion-content class="ion-padding">
   <table class="table">
@@ -16,14 +20,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of alimentosData">
+      <tr *ngFor="let item of dietasData">
         <td>{{ item.id }}</td>
         <td>{{ item.nome }}</td>
         <td>{{ item.calorias }}</td>
         <td>{{ item.peso }}</td>
         <td>{{ item.porcao }}</td>
         <td style="display: flex">
-          <ion-button color="warning" size="small" routerLink='/alimento-edit/{{item.id}}'>
+          <ion-button color="warning" size="small" routerLink='/dieta-edit/{{item.id}}'>
             <ion-icon name="create"></ion-icon>
           </ion-button>
           <ion-button color="danger" size="small" (click)="delete(item)">
@@ -33,14 +37,11 @@
       </tr>
     </tbody>
   </table>
-  <ion-button [routerLink]="['/dieta-list']">
-    Listar Dieta
+  <ion-button [routerLink]="['/dieta-create']">
+    Add Dieta
   </ion-button>
 
-  <ion-button [routerLink]="['/alimento-create']">
-    Add Alimento
+  <ion-button [routerLink]="['/alimento-list']">
+    List Alimento
   </ion-button>
-
-  
-
 </ion-content>

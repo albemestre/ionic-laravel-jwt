@@ -3,10 +3,69 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-  /*alimentos*/
+  /*HOME*/
   { path: '',
-    redirectTo: 'alimento-list', 
-    pathMatch: 'full' },
+    redirectTo: 'user-login', 
+    pathMatch: 'full' 
+  },
+  {
+    path: 'user-login',
+    loadChildren: () => import('./user-login/user-login.module').then( m => m.UserLoginPageModule)
+  },
+
+
+  /*{ path: '',
+  redirectTo: 'user-logout', 
+  pathMatch: 'full' 
+  },
+  {
+    path: 'user-logout',
+    loadChildren: () => import('./user-login/user-logout.module').then( m => m.UserLoginPageModule)
+  },*/
+
+
+  /*CRIAR LOGIN*/
+  { path: 'user-create',
+  redirectTo: 'user-create'
+  },
+  {
+    path: 'user-create',
+    loadChildren: () => import('./user-create/user-create.module').then( m => m.UserLoginCreatePageModule)
+  },
+
+    /*FINALIZAR-CADASTRO*/
+  { path: 'finalize registration',
+  redirectTo: 'paciente-nutri-create'
+  },
+  {
+    path: 'paciente-nutri-create',
+    loadChildren: () => import('./paciente-nutri-create/paciente-nutri-create.module').then( m => m.UserLoginCreatePageModule)
+  },
+  
+
+  /*DIETA*/
+  { path: 'dieta-list',
+  redirectTo: 'dieta-list',     
+  },
+  {
+    path: 'dieta-list',
+    loadChildren: () => import('./dieta-list/dieta-list.module').then( m => m.DietaListPageModule)
+  },
+
+  { path: 'dieta-create',
+  redirectTo: 'dieta-create',     
+  },
+  {
+    path: 'dieta-create',
+    loadChildren: () => import('./dieta-create/dieta-create.module').then( m => m.DietaCreatePageModule)
+  },
+
+
+
+  /*ALIMENTOS*/
+  { path: 'alimento-list',
+    redirectTo: 'alimento-list',     
+  },
   {
     path: 'alimento-create',
     loadChildren: () => import('./alimento-create/alimento-create.module').then( m => m.AlimentoCreatePageModule)
