@@ -22,7 +22,10 @@ export class UserLoginPage implements OnInit {
   login() {
     this.apiService.login(this.data).subscribe((response) => {
       debugger;
+      this.data = new UserLogin();
       localStorage.setItem('data_token', response['data'].access_token);
+      localStorage.setItem('user_id', response['data'].user.id);
+    
       this.router.navigate(['dieta-list']);
     });
   }

@@ -62,8 +62,15 @@ export class ApiUserLoginsService {
   // Create a new item
   login(item): Observable<UserLogin> {
     
+
+    let httpOptions =  {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'          
+        })       
+    }
+
     return this.http      
-      .post<UserLogin>(this.base_path+"/login", JSON.stringify(item), this.getHttpOptions())
+      .post<UserLogin>(this.base_path+"/login", JSON.stringify(item), httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -86,8 +93,14 @@ export class ApiUserLoginsService {
   // Create a new item
   register(item): Observable<UserLoginCreate> {
     
+    let httpOptions =  {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'          
+      })       
+    }
+  
     return this.http      
-      .post<UserLoginCreate>(this.base_path+"/register", JSON.stringify(item), this.getHttpOptions())
+      .post<UserLoginCreate>(this.base_path+"/register", JSON.stringify(item), httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
