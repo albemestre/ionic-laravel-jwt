@@ -18,17 +18,15 @@ export class AlimentoListPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.getAllAlimentos();
+    
   }
 
   ionViewWillEnter() {
-    // Used ionViewWillEnter as ngOnInit is not 
-    // called due to view persistence in Ionic
     this.getAllAlimentos();
   }
 
   getAllAlimentos() {
-    //Get saved list of alimentos
+    debugger
     this.apiService.getList().subscribe(response => {
       debugger;
       console.log(response);
@@ -38,9 +36,8 @@ export class AlimentoListPage implements OnInit {
 
 
   delete(item) {
-    //Delete item in Alimento data
+    
     this.apiService.deleteItem(item.id).subscribe(Response => {
-      //Update list after delete is successful
       this.getAllAlimentos();
     });
   }

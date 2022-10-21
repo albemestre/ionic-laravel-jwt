@@ -109,6 +109,7 @@ export class ApiUserLoginsService {
 
   // Get single userlogin data by ID
   getItem(id): Observable<UserLogin> {
+    debugger
     return this.http
       .get<UserLogin>(this.base_path + '/' + id, this.getHttpOptions())
       .pipe(
@@ -131,12 +132,12 @@ export class ApiUserLoginsService {
       //`${environment.apiUrl}/api/Servers/GetServerList`
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.auth_token}`
+        //'Authorization': `Bearer ${this.auth_token}`
       })
       
       var reqHeader = new HttpHeaders({ 
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('mpManagerToken'))
+        //'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('mpManagerToken'))
      });
     //return this.http.get<Server[]>(`${environment.apiUrl}/api/Servers/GetServerList`, { headers: reqHeader });
 
