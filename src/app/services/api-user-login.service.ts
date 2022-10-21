@@ -70,7 +70,7 @@ export class ApiUserLoginsService {
     }
 
     return this.http      
-      .post<UserLogin>(this.base_path+"/login", JSON.stringify(item), httpOptions)
+      .post<UserLogin>(this.base_path+"/logar", JSON.stringify(item), httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -83,7 +83,7 @@ export class ApiUserLoginsService {
     debugger
     
     return this.http      
-      .post<void>(this.base_path+"/logout", null, this.getHttpOptions())
+      .post<void>(this.base_path+"/deslogar", null, this.getHttpOptions())
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -100,14 +100,14 @@ export class ApiUserLoginsService {
     }
   
     return this.http      
-      .post<UserLoginCreate>(this.base_path+"/register", JSON.stringify(item), httpOptions)
+      .post<UserLoginCreate>(this.base_path+"/registro", JSON.stringify(item), httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  // Get single userlogin data by ID
+  
   getItem(id): Observable<UserLogin> {
     return this.http
       .get<UserLogin>(this.base_path + '/' + id, this.getHttpOptions())
@@ -117,30 +117,8 @@ export class ApiUserLoginsService {
       )
   }
 
-  // Get userlogins data
   getList(): Observable<UserLogin> {
-  
-    
-    /*return this.http
-      .get<UserLogin>(this.base_path)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )*/
-      
-      //`${environment.apiUrl}/api/Servers/GetServerList`
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.auth_token}`
-      })
-      
-      var reqHeader = new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('mpManagerToken'))
-     });
-    //return this.http.get<Server[]>(`${environment.apiUrl}/api/Servers/GetServerList`, { headers: reqHeader });
 
-    //return this.http.get<Observable>(this.base_path, { headers: headers });
     return this.http
       .get<UserLogin>(this.base_path, this.getHttpOptions())
       .pipe(
@@ -150,7 +128,6 @@ export class ApiUserLoginsService {
 
   }
 
-  // Update item by id
   updateItem(id, item): Observable<UserLogin> {
     return this.http
       .put<UserLogin>(this.base_path + '/' + id, JSON.stringify(item), this.getHttpOptions())
